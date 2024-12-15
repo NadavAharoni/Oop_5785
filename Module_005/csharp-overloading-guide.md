@@ -14,22 +14,27 @@ Function overloading allows multiple methods in the same class to have the same 
 ```csharp
 public class Calculator 
 {
-    // Overloaded methods
-    public int Add(int a, int b) 
+    // Overloaded static methods
+    public static int Add(int a, int b) 
     {
         return a + b;
     }
 
-    public double Add(double a, double b) 
+    public static double Add(double a, double b) 
     {
         return a + b;
     }
 
-    public int Add(int a, int b, int c) 
+    public static int Add(int a, int b, int c) 
     {
         return a + b + c;
     }
 }
+
+// Usage examples
+int sum1 = Calculator.Add(5, 3);           // Calls int version
+double sum2 = Calculator.Add(5.5, 3.7);    // Calls double version
+int sum3 = Calculator.Add(1, 2, 3);        // Calls three-parameter version
 ```
 
 ### Constraints
