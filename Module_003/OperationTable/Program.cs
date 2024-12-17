@@ -1,5 +1,6 @@
 ﻿using OperationTable;
 using System.Net.NetworkInformation;
+using System.Text;
 
 internal class Program
 {
@@ -79,6 +80,13 @@ internal class Program
 
     private static void Main(string[] args)
     {
+        Fraction f1 = new Fraction(1, 3);
+        Fraction f2 = new Fraction(1, 4);
+
+        Console.WriteLine($"{f1} + {f2} = {f1 + f2}");
+
+        // DelegateExample.TestDelegateExample();
+
         //ComparerExample arr1 = new ComparerExample();
         //arr1.SortByLength();
         //Console.WriteLine($"Array sorted by length:\n{arr1.ToString()}");
@@ -87,23 +95,23 @@ internal class Program
         //Console.WriteLine($"Array sorted with default comparison:\n{arr1}");
         //Console.WriteLine("==================");
 
-        Counter c1 = new Counter();
-        Counter c2 = new Counter();
-        F f1 = c1.Increment;
-        F f2 = c2.Increment;
+        //Counter c1 = new Counter();
+        //Counter c2 = new Counter();
+        //F f1 = c1.Increment;
+        //F f2 = c2.Increment;
 
-        f1(3);
-        f2(5);
+        //f1(3);
+        //f2(5);
 
-        Console.WriteLine($"c1={c1.count}, c2={c2.count}");
+        //Console.WriteLine($"c1={c1.count}, c2={c2.count}");
 
-        F f3 = f1 + f2;
-        f3(10);
-        Console.WriteLine($"c1={c1.count}, c2={c2.count}");
+        //F f3 = f1 + f2;
+        //f3(10);
+        //Console.WriteLine($"c1={c1.count}, c2={c2.count}");
 
-        f2 = f1;
-        f3(11);
-        Console.WriteLine($"c1={c1.count}, c2={c2.count}");
+        //f2 = f1;
+        //f3(11);
+        //Console.WriteLine($"c1={c1.count}, c2={c2.count}");
 
         return;
 
