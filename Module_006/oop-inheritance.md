@@ -21,6 +21,69 @@ public class Student
 }
 ```
 
+### Access Modifiers
+- `public`: Accessible from anywhere
+- `private`: Only accessible within the same class
+- `protected`: Accessible within the same class and derived classes
+- `internal`: Accessible within the same assembly (DLL or EXE) only
+- `protected internal`: Accessible within the same assembly OR in derived classes
+
+The `internal` modifier is unique to C# and is particularly useful in library development. It allows you to make types or members available to other classes within your library/assembly while keeping them hidden from external code that uses your library.
+
+```csharp
+// Only accessible within the same assembly
+internal class Logger 
+{
+    internal void Log(string message) { }
+}
+
+// Accessible within assembly or derived classes anywhere
+public class BaseClass 
+{
+    protected internal void SharedMethod() { }
+}
+```
+
+### The 'this' Reference
+The `this` keyword refers to the current instance of a class. It's particularly useful for:
+1. Disambiguating between class fields and parameter names
+2. Passing the current instance to other methods
+3. Method chaining
+4. Implementing fluent interfaces
+
+```csharp
+public class Student
+{
+    private string name;
+    private int age;
+
+    // Using 'this' to disambiguate
+    public Student(string name, int age)
+    {
+        this.name = name;  // 'this.name' refers to the field
+        this.age = age;    // 'age' alone would refer to the parameter
+    }
+
+    // Method chaining using 'this'
+    public Student SetName(string name)
+    {
+        this.name = name;
+        return this;  // Returns current instance
+    }
+
+    public Student SetAge(int age)
+    {
+        this.age = age;
+        return this;
+    }
+
+    // Usage example:
+    // Student student = new Student()
+    //     .SetName("John")
+    //     .SetAge(20);
+}
+```
+
 ## Inheritance
 Inheritance enables a class to include and extend the functionality of another class. C# supports single inheritance, meaning a class can inherit from only one base class.
 
@@ -46,6 +109,93 @@ public class Teacher : Person
     public Teacher(string name, string subject) : base(name)
     {
         this.subject = subject;
+    }
+}
+```
+
+## Type Casting and Conversion
+C# provides several ways to cast between base and derived types.
+
+### Upcasting (Derived to Base)
+- Implicit conversion from derived class to base class
+- Always safe and doesn't require explicit syntax
+- May hide derived class specific members
+
+```csharp
+public class Animal
+{
+    public virtual void MakeSound() { }
+}
+
+public class Dog : Animal
+{
+    public void Fetch() { }
+}
+
+// Upcast example
+Dog dog = new Dog();
+Animal animal = dog;  // Implicit upcast
+// animal.Fetch();    // Error: Base class doesn't know about Fetch()
+```
+
+### Downcasting (Base to Derived)
+- Explicit conversion from base class to derived class
+- Requires explicit cast syntax
+- Can fail at runtime if the object isn't actually of the target type
+- Should be used with type checking (`is` operator) or safe casting (`as` operator)
+
+```csharp
+public class Animal
+{
+    public virtual void MakeSound() { }
+}
+
+public class Dog : Animal
+{
+    public void Fetch() { }
+}
+
+public class Cat : Animal
+{
+    public void Climb() { }
+}
+
+public class TypeCastingExample
+{
+    public void DemonstrateCasting()
+    {
+        // Create a Dog object and upcast to Animal
+        Animal animal = new Dog();
+
+        // Safe downcasting using 'is' operator
+        if (animal is Dog)
+        {
+            Dog dog = (Dog)animal;
+            dog.Fetch();
+        }
+
+        // Safe downcasting using 'as' operator
+        Dog safeDog = animal as Dog;
+        if (safeDog != null)
+        {
+            safeDog.Fetch();
+        }
+
+        // Pattern matching (modern C# approach)
+        if (animal is Dog doggie)
+        {
+            doggie.Fetch();
+        }
+
+        // Runtime error if wrong type
+        try
+        {
+            Cat cat = (Cat)animal;  // Throws InvalidCastException
+        }
+        catch (InvalidCastException)
+        {
+            Console.WriteLine("Cannot cast Dog to Cat");
+        }
     }
 }
 ```
