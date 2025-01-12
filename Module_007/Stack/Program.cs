@@ -84,6 +84,16 @@ namespace GenericStack
         {
             return _index;
         }
+
+        public override string ToString()
+        {
+            string ret = "";
+            for (int i=_index; i > 0; i--)
+            {
+                ret += (i-1).ToString() + " :" + _arr[i-1] + "\n";
+    }
+            return ret;
+        }
     }
     internal class Program
     {
