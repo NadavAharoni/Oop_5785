@@ -1,6 +1,4 @@
 ﻿using OperationTable;
-using System.Net.NetworkInformation;
-using System.Text;
 
 internal class Program
 {
